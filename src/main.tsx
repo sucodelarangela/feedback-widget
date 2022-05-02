@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client' // integração do React com o DOM
-import App from './App'
+import { App } from './App'
 
 import './global.css' // no React, todas as importações são feitas no arquivo javascript, inclusive os stylesheets. O Vite vai lidar com esse carregamento.
 
