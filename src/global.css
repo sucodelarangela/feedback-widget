@@ -1,0 +1,4 @@
+/* Inserindo o tailwind no projeto */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
