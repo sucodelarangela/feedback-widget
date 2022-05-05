@@ -1,13 +1,15 @@
 import { feedbackTypes, FeedbackType } from ".."
 import { CloseButton } from '../../CloseButton'
 
+// Quando importamos a função do elemento pai através de uma propriedade do componente, precisamos definir os props
 interface FeedbackTypeStepProps {
     onFeedbackTypeChange: (type: FeedbackType) => void
+    // a propriedade onFeedbackTypeChange recebe um tipo de feedback e não retorna nada
 }
 
 export function FeedbackTypeStep({onFeedbackTypeChange}: FeedbackTypeStepProps){
     return(
-      <>
+      <> 
         <header>
           <span className='text-xl leading-6'>Deixe seu feedback</span>
           <CloseButton/>
