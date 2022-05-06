@@ -4,8 +4,12 @@ module.exports = {
     extend: {
       colors: {
         brand: {
+          300: '#996DFF', // nova variável de cor
           500: '#8257e6' // nova variável de cor
         }
+      },
+      borderRadius: {
+        md: '4px' // novo raio para o rounded-md
       }
     }
   },
