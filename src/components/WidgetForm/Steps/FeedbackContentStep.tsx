@@ -1,5 +1,5 @@
 import {ArrowLeft} from 'phosphor-react';
-import {useState} from 'react';
+import {FormEvent, useState} from 'react';
 import {FeedbackType, feedbackTypes} from '..';
 import {CloseButton} from '../../CloseButton';
 import {ScreenshotButton} from '../ScreenshotButton';
@@ -16,7 +16,20 @@ export function FeedbackContentStep({
   // Estado para armazenar a screenshot tirada. Terá a função chamada mais abaixo na chamada do ScreenshotButton e deverá ser enviado ao componente ScreenshotButton através de uma interface
   const [screenshot, setScreenshot] = useState<String | null>(null);
 
+  // Estado para salvar o texto do feedback. Será chamado no onChange do textarea
+  const [comment, setComment] = useState('');
+
   const feedbackTypeInfo = feedbackTypes[feedbackType];
+
+  // Função do submit do formulário
+  function handleSubmitFeedback(event: FormEvent) {
+    event.preventDefault();
+
+    console.log({
+      screenshot,
+      comment
+    });
+  }
 
   return (
     <>
@@ -41,10 +54,11 @@ export function FeedbackContentStep({
         <CloseButton />
       </header>
 
-      <form className="my-4 w-full">
+      <form onSubmit={handleSubmitFeedback} className="my-4 w-full">
         <textarea
           className="min-w-[304px] w-full min-h-[112px] text-sm placeholder-zinc-400 text-zinc-100 border-zinc-600 bg-transparent rounded-md focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none resize-none scrollbar-thumb-zinc-700 scrollbar-track-transparent scrollbar-thin"
           placeholder="Conte com detalhes o que está acontecendo..."
+          onChange={event => setComment(event.target.value)}
         />
 
         <footer className="flex gap-2 mt-2">
