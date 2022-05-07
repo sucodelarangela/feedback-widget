@@ -1,9 +1,18 @@
 import html2canvas from 'html2canvas';
-import {Camera} from 'phosphor-react';
+import {Camera, Trash} from 'phosphor-react';
 import {useState} from 'react';
 import {Loading} from './Loading';
 
-export function ScreenshotButton() {
+// Vinculando com a chamada do componente em FeedbackContentStep
+interface ScreenshotButtonProps {
+  screenshot: string;
+  onScreenshotTaken: (screenshot: string) => void;
+}
+
+export function ScreenshotButton({
+  screenshot,
+  onScreenshotTaken
+}: ScreenshotButtonProps) {
   // para adicionar ícone de loading enquanto a foto está sendo tirada, criaremos este useState
   const [isTakingScreenshot, setIsTakingScreenshot] = useState(false);
 
@@ -14,10 +23,29 @@ export function ScreenshotButton() {
     // usando a lib html2canvas. O ! no final do querySelector é para forçar a função a nunca retornar null
     const canvas = await html2canvas(document.querySelector('html')!);
     const base64image = canvas.toDataURL('image/png');
-    console.log(base64image);
+
+    // Manda a imagem para o componente pai
+    onScreenshotTaken(base64image);
 
     // Após tirar o screenshot removeremos o loading icon. As informações da foto deverão ir para o FeedbackContent (componente pai)
     setIsTakingScreenshot(false);
+  }
+
+  // Se já tiver uma foto:
+  if (screenshot) {
+    return (
+      <button
+        type="button"
+        className="p-1 w-10 h-10 rounded-md border-transparent flex justify-end items-end text-zinc-400 hover:text-zinc-100 transition-colors"
+        style={{
+          backgroundImage: `url(${screenshot})`,
+          backgroundPosition: `right bottom`,
+          backgroundSize: 180
+        }}
+      >
+        <Trash weight="fill" />
+      </button>
+    );
   }
 
   return (
