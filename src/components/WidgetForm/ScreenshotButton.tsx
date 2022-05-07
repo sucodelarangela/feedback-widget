@@ -5,8 +5,8 @@ import {Loading} from './Loading';
 
 // Vinculando com a chamada do componente em FeedbackContentStep
 interface ScreenshotButtonProps {
-  screenshot: string;
-  onScreenshotTaken: (screenshot: string) => void;
+  screenshot: string | null;
+  onScreenshotTaken: (screenshot: string | null) => void;
 }
 
 export function ScreenshotButton({
@@ -37,6 +37,9 @@ export function ScreenshotButton({
       <button
         type="button"
         className="p-1 w-10 h-10 rounded-md border-transparent flex justify-end items-end text-zinc-400 hover:text-zinc-100 transition-colors"
+        onClick={() => {
+          onScreenshotTaken(null);
+        }}
         style={{
           backgroundImage: `url(${screenshot})`,
           backgroundPosition: `right bottom`,
