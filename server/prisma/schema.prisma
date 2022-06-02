@@ -10,5 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Creating database table model indicating the table column names and type of info. We are using string, but Prisma automatically converts it to the specific type of each kind of database:
+
+model Feedback {
+  id String @id @default(uuid())
+
+  type       String
+  comment    String
+  screenshot String? // ? indicates optional
+
+  @@map("feedbacks")
+}
+
 // Config from https://www.prisma.io/docs/concepts/database-connectors/sqlite
 // url comes from .env file
