@@ -19,15 +19,6 @@ routes.post('/feedbacks', async (req, res) => {
   // Creating new data inside prisma 'feedback' table
   const {type, comment, screenshot} = req.body;
 
-  const feedback = await prisma.feedback.create({
-    // Using short syntax from destructuring above
-    data: {
-      type, // type: req.body.type
-      comment, // comment: req.body.comment
-      screenshot // screenshot: req.body.screenshot
-    }
-  });
-
   // Using mailtrap
   await transport.sendMail({
     from: 'Equipe Feedget <oi@feedget.com>',
