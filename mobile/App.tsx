@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler'
+
 import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import AppLoading from 'expo-app-loading';
@@ -25,12 +27,14 @@ export default function App() {
         backgroundColor: theme.colors.background
       }}
     >
-      <Widget />
 
       <StatusBar
         style="light"
         backgroundColor='transparent'
         translucent />
+
+      <Widget />
+
     </View>
   );
 }
