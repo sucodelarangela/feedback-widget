@@ -10,10 +10,28 @@ import {
 
 import { styles } from "./styles";
 
-export function Option() {
+// Extending TouchableOpacity types and Image types using props
+interface Props extends TouchableOpacityProps {
+  title: string;
+  image: ImageProps;
+}
+
+// Using ...rest (spread operator) to get all other properties from TouchableOpacity to be passed as properties for the component
+export function Option({ title, image, ...rest }: Props) {
   return (
-    <View style={styles.container}>
-      {/*  */}
-    </View>
+    <TouchableOpacity
+      style={styles.container}
+      {...rest}
+    >
+      <Image
+        source={image}
+        style={styles.image}
+      />
+
+      <Text
+        style={styles.title}>
+        {title}
+      </Text>
+    </TouchableOpacity>
   )
 }
