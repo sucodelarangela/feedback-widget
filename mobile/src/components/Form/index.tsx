@@ -18,6 +18,7 @@ import { Button } from '../../components/Button'
 import { styles } from "./styles";
 import { theme } from "../../theme";
 import { feedbackTypes } from '../../utils/feedbackTypes'
+import { api } from "../../libs/api";
 
 // creating an interface to define the properties for the Form component
 interface Props {
@@ -27,7 +28,9 @@ interface Props {
 }
 
 export function Form({ feedbackType, onFeedbackCancel, onFeedbackSent }: Props) {
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false)
   const [screenshot, setScreenshot] = useState<string | null>(null)
+  const [comment, setComment] = useState('')
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
@@ -42,6 +45,28 @@ export function Form({ feedbackType, onFeedbackCancel, onFeedbackSent }: Props) 
 
   function handleScreenshotRemove() {
     setScreenshot(null)
+  }
+
+  async function handleSendFeedback() {
+    if (isSendingFeedback) {
+      return
+    }
+
+    setIsSendingFeedback(true)
+
+    try {
+      await api.post('/feedbacks', {
+        type: feedbackType,
+        screenshot,
+        comment
+      })
+
+      onFeedbackSent();
+
+    } catch (error) {
+      console.log(error)
+      setIsSendingFeedback(false)
+    }
   }
 
   return (
@@ -73,6 +98,7 @@ export function Form({ feedbackType, onFeedbackCancel, onFeedbackSent }: Props) 
         placeholder='Algo não está funcionando bem? Queremos corrigir. Conte com detalhes o que está acontecendo...'
         placeholderTextColor={theme.colors.text_secondary}
         autoCorrect={false}
+        onChangeText={setComment}
       />
 
       <View style={styles.footer}>
@@ -82,10 +108,10 @@ export function Form({ feedbackType, onFeedbackCancel, onFeedbackSent }: Props) 
           screenshot={screenshot}
         />
 
-        <Button isLoading={false} />
+        <Button onPress={handleSendFeedback} isLoading={isSendingFeedback} />
       </View>
     </View>
   )
 }
 
-// 1:25:37
+// 1:55

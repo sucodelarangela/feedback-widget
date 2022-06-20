@@ -59,7 +59,7 @@ function Widget() {
         {/* Conditionally handling choosing feedback types: */}
         {
           feedbackSent ?
-            <Success />
+            <Success onSendAnotherFeedback={handleRestartFeedback} />
             :
             <>
               {
