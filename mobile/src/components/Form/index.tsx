@@ -72,6 +72,7 @@ export function Form({ feedbackType, onFeedbackCancel, onFeedbackSent }: Props) 
         style={styles.input}
         placeholder='Algo não está funcionando bem? Queremos corrigir. Conte com detalhes o que está acontecendo...'
         placeholderTextColor={theme.colors.text_secondary}
+        autoCorrect={false}
       />
 
       <View style={styles.footer}>
